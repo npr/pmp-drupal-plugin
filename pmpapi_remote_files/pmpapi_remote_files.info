@@ -1,0 +1,7 @@
+name = PMP API Remote Files
+description = Allow pulled PMP files (audio, image, video) to be kept remote (no local copies) 
+core = 7.x
+package = PMPAPI
+
+dependencies[] = pmpapi_pull
+dependencies[] = remote_stream_wrapper

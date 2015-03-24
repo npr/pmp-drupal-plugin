@@ -1,0 +1,8 @@
+name = PMP API Groups
+description = Manage Groups for the PMP API
+core = 7.x
+package = PMPAPI
+
+dependencies[] = pmpapi
+
+configure = admin/config/services/pmp/groups

@@ -1,0 +1,8 @@
+name = PMP Query Tools
+description = Build, save, and execute PMP queries
+core = 7.x
+package = PMPAPI
+
+dependencies[] = pmpapi
+
+configure = admin/config/services/pmp/queries

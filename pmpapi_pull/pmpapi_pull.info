@@ -1,0 +1,12 @@
+name = PMP API Pull
+description = Download docs via the PMP API
+core = 7.x
+package = PMPAPI
+
+dependencies[] = pmpapi
+dependencies[] = entity
+
+files[] = classes/PMPAPIDrupalPull.php
+files[] = tests/pmpapi_pull.test
+
+configure = admin/config/services/pmp/pull

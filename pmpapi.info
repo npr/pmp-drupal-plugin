@@ -1,0 +1,10 @@
+name = PMP API
+description = Utility module for accessing the PMP API
+core = 7.x
+package = PMPAPI
+php = 5.3
+
+files[] = classes/PMPAPIDrupal.php
+files[] = tests/pmpapi.test
+
+configure = admin/config/services/pmp

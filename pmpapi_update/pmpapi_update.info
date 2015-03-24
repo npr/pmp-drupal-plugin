@@ -1,0 +1,10 @@
+name = PMP API Update
+description = Allows one to update pulled stories with a minimal amount of effort
+core = 7.x
+package = PMPAPI
+
+dependencies[] = pmpapi_pull
+
+files[] = classes/PMPAPIDrupalUpdate.php
+
+configure = admin/config/services/pmp/updates
