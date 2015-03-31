@@ -287,7 +287,7 @@ function pmpapi_pull_preview($form, &$form_state, $guid = '') {
       $entity_values['name'] = format_username($account);
       $default_format = filter_default_format($account);
 
-      $special_fields = array('image', 'audio');
+      $special_fields = array('image', 'audio', 'tags');
       foreach ($map as $pmp_field => $local_field) {
         $local_ok = $local_field && $local_field !== $label;
         $pmp_ok = !in_array($pmp_field, $special_fields) && !empty($pmp_doc->attributes->$pmp_field);
