@@ -3,7 +3,7 @@
 2. cd into the directory you just created: `cd pmpapi`
 3. Get a copy of the PHP SDK:
 
-    `git clone -b v0.1.0 --depth 1 git@github.com:publicmediaplatform/phpsdk.git`
+    `git clone -b v0.1.2 --depth 1 git@github.com:publicmediaplatform/phpsdk.git`
     
 4. **Make sure you do not use a newer version of the SDK.** It can and will break the modules.
 5. Enable the pmpapi module (or more)
