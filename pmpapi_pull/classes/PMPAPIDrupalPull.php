@@ -317,7 +317,7 @@ class PMPAPIDrupalPull extends PMPAPIDrupal {
         $vid = $vocab->vid;
 
         foreach ($doc->attributes->$pmp_field as $element) {
-          $terms = taxonomy_get_term_by_name($element, $vid);
+          $terms = taxonomy_get_term_by_name($element, $vocab_name);
           if (!empty($terms)) {
             $term = array_shift($terms);
             $tids[] = array('tid' => $term->tid);
