@@ -343,13 +343,13 @@ function pmpapi_pmpapi_profile_info() {
 
     'description' => array(
       'type' => 'text',
-      'accepted_types' => array('text'),
+      'accepted_types' => array('text', 'text_long'),
       'description' => t('A representation of the content of this document without HTML.'),
     ),
 
     'teaser' => array(
       'type' => 'text',
-      'accepted_types' => array('text'),
+      'accepted_types' => array('text', 'text_long'),
       'description' => t('A short description, appropriate for showing in small spaces.'),
     ),
 
