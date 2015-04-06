@@ -98,27 +98,3 @@ class PMPAPIWebTestCase extends DrupalWebTestCase {
     $this->assertTrue(is_object($doc), 'successfully pushed a story to the PMP.');
   }
 }
-
-  
-class PMPAPIUnitTestCase extends DrupalUnitTestCase {
-  public static function getInfo() {
-    return array(
-    'name' => 'PMPAPI unit tests',
-    'description' => 'Test that PMP API works properly.',
-    'group' => 'PMPAPI',
-  );
-
-  function testPmpapiGetProfileFromDoc() {
-    //1f6cbcb3-bb41-4e40-a315-917203b433be
-    $values = array('profile' => );
-    $pmp = new PMPAPIDrupal();
-    $doc = $pmp->createDoc($values);
-
-    //$doc->links->profile[0]->href
-
-    $result = simpletest_example_empty_mysql_date(NULL);
-    // Note: Test output messages should not be translated.
-    $message = 'A NULL value should return TRUE.';
-    $this->assertTrue($result, $message);
-  }
-}
