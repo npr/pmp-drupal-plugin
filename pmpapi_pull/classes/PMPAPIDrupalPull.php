@@ -338,9 +338,89 @@ class PMPAPIDrupalPull extends PMPAPIDrupal {
       }
     }
     else {
-      $value = array($entity->language => array(0 => array('value' => $doc->attributes->$pmp_field, 'format' => $default_format)));
+      $values = array(
+        'value' => $doc->attributes->$pmp_field,
+        'format' => $default_format
+      );
+      $this->alterMappedValues($values, $local_field_info, $entity, $doc->profile);
+      $value = array($entity->language => array(0 => $values));
     }
     $entity->$local_field = $value;
+  }
+
+  /**
+   * Alter values just prior to mapping.
+   *
+   * @param $values array
+   *   The values (values, format, timezone) that constitute the local field
+   * @param $local_field_info array
+   *   Info about the local field being mapped to.
+   * @param $entity object
+   *   The entity to which the doc is being mapped.
+   * @param $profile string
+   *   The kind of PMP doc being mapped.
+   */
+  function alterMappedValues(&$values, $local_field_info, $entity, $profile) {
+    switch ($local_field_info['type']) {
+      case 'date':
+      case 'datetime':
+      case 'datestamp':
+        $mapped_entity = pmpapi_pull_find_mapped_entity($profile);
+        $entity_type = $mapped_entity['entity_type'];
+        $bundle_name = $mapped_entity['bundle_name'];
+        $this->modifyDate($values, $local_field_info, $entity, $entity_type, $bundle_name);
+      default:
+    }
+  }
+
+  /**
+   * Turn PMP date data into acceptable Drupal date field data
+   *
+   * @param $values
+   *   The values (values, format, timezone) that constitute the local field
+   * @param $local_field_info array
+   *   Info about the local field being mapped to.
+   * @param $entity
+   *  The entity to which the doc is being mapped.
+   * @param $entity_type string
+   *   The type (node, file, etc.) of the entity
+   * @param $bundle_name string
+   *   The bundle (article, audio, etc.) of the entity
+   */
+  function modifyDate(&$values, $local_field_info, $entity, $entity_type, $bundle_name) {
+    $instance_info = field_info_instance($entity_type, $local_field_info['field_name'], $bundle_name);
+    $input_format = $instance_info['widget']['settings']['input_format'];
+    $tz_handling = $local_field_info['settings']['tz_handling'];
+
+    // Overly complex logic is intentional, as to spell out all five
+    // timezone handler options
+    switch ($tz_handling) {
+      case 'site':
+      case 'user':
+      case 'utc':
+      case 'none':
+        $tz = 'UTC';
+        break;
+      case 'date':
+        $tz = 'UTC';
+        $values['timezone'] = 'UTC';
+        break;
+    }
+    $ts = strtotime($values['value']);
+    switch ($local_field_info['type']) {
+      // Public field type = 'Date' (yes, this is confusing)
+      // See https://www.drupal.org/node/1455576
+      case 'datetime':
+        $values['value'] = format_date($ts, 'custom', 'Y-m-d H:i:s', $tz);
+        break;
+      // Public field type = 'Date (ISO format)'
+      case 'date':
+        $values['value'] = format_date($ts, 'custom', 'Y-m-d\TH:i:s', $tz);
+        break;
+      case 'datestamp':
+        $values['value'] = $ts;
+        break;
+    }
   }
 
   /**
