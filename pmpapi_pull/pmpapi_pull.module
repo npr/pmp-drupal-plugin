@@ -305,7 +305,7 @@ function pmpapi_pull_pmpapi_push_entity_ok_to_push($entity, $type) {
 function pmpapi_pull_get_ext_from_mimetype($mimetype) {
   // Convert mimetype string (e.g., 'image/jpeg') into file extension (e.g., 'jpg')
   require_once DRUPAL_ROOT . '/' . 'includes/file.mimetypes.inc';
-  $mappings = file_default_mimetype_mapping();
+  $mappings = file_mimetype_mapping();
   // Create an array that maps mimetype string to integer (mimetype constant)
   $mimetypes = array_flip($mappings['mimetypes']);
   // Create an array that maps integer (mimetype constant) into file extension
