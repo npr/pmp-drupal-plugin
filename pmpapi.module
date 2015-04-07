@@ -623,3 +623,55 @@ function pmpapi_convert_timestamp($timestamp = NULL) {
   }
   return format_date($timestamp, 'custom', DateTime::ISO8601);
 }
+
+/**
+ * Determines if a URL seems like an MP3
+ *
+ * @param $url
+ *   A url pointing to the file
+ *
+ * @return bool
+ *   TRUE if path seems to point to an M3U, FALSE otherwise
+ */
+function pmpapi_url_is_mp3($url) {
+  $pieces = drupal_parse_url($url);
+  return substr($pieces['path'], -4) === '.mp3';
+}
+
+/**
+ * Determines if a URL seems like an M3U
+ *
+ * @param $url
+ *   A url pointing to the file
+ *
+ * @return bool
+ *   TRUE if path seems to point to an M3U, FALSE otherwise
+ */
+function pmpapi_url_is_m3u($url) {
+  $pieces = drupal_parse_url($url);
+  return substr($pieces['path'], -4) === '.m3u';
+}
+
+/**
+ * Attempts to crack an M3U and find first link to an MP3
+ *
+ * @param $url
+ *   A url pointing to an M3U
+ *
+ * @return
+ *   The first MP3 URL to be found in the M3U, FALSE if no MP3 is found,
+ *   NULL if the file cannot be opened.
+ */
+function pmpapi_get_mp3_from_m3u($url) {
+  $lines = file($url);
+  if ($lines) {
+    foreach ($lines as $line) {
+      if (pmpapi_url_is_mp3($line)) {
+        return $line;
+      }
+    }
+  }
+  else {
+    return NULL;
+  }
+}

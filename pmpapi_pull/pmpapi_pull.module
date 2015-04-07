@@ -361,7 +361,11 @@ function pmpapi_pull_make_local_files($profile) {
  *   The URI of the enclosure file
  */
 function pmpapi_pull_get_enclosure_url($enclosure) {
-  if (stripos($enclosure->href, 'apm-audio:') !== 0) {
+  if (pmpapi_url_is_m3u($enclosure->href)) {
+    // NPR enclosures are M3Us; we need to crack that file and extract the MP3
+    $uri = pmpapi_get_mp3_from_m3u($enclosure->href);
+  }
+  elseif (stripos($enclosure->href, 'apm-audio:') !== 0) {
     $uri = $enclosure->href;
   }
   else {

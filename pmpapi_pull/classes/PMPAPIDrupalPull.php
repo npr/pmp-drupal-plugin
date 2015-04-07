@@ -184,6 +184,12 @@ class PMPAPIDrupalPull extends PMPAPIDrupal {
     $file = new stdClass;
     if (pmpapi_pull_make_local_files($profile)) {
       $file_mimetype = $enclosure->type;
+      // NPR enclosures are M3U's. The call to pmpapi_pull_get_enclosure_url()
+      // above should extract an MP3 URL, but we also need to also adjust the
+      // enclosure->type (if it exists)
+      if ($file_mimetype == 'audio/m3u') {
+        $file_mimetype = 'audio/mpeg';
+      }
       $ext = pmpapi_pull_get_ext_from_mimetype($file_mimetype);
 
       $filename = $guid . '.' . $ext;
