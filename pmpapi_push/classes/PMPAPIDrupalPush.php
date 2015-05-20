@@ -59,6 +59,7 @@ class PMPAPIDrupalPush extends PMPAPIDrupal {
     $bundle_name = $wrapper->getBundle();
     
     $doc = new stdClass();
+    $doc->attributes = new stdClass();
     $doc->version = '1.0';
     $doc->attributes->hreflang = 'en';
     $profile_obj = new stdClass();

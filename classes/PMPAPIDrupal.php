@@ -139,12 +139,14 @@ class PMPAPIDrupal {
         if ($doc) {
           $URN = "urn:collectiondoc:query:$type";
           $results = $doc->query($URN)->submit($options);
+          $this->query->results = new stdClass();
           $this->query->results->json = $results;
           if (!empty($options['guid'])) {
             $this->query->results->docs[] = $results;
           }
           else {
             $this->query->results->docs = $results->items;
+            $this->query->links = new stdClass();
             $this->query->links->navigation = $this->flattenNavLinks($results->links->navigation);
           }
           $this->cacheSet($key, $this->query);
@@ -211,6 +213,7 @@ class PMPAPIDrupal {
     );
 
     $doc = new stdClass();
+    $doc->attributes = new stdClass();
     $doc->version = $values['version'];
 
     $profile = new stdClass();

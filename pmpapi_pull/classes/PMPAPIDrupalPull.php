@@ -79,7 +79,8 @@ class PMPAPIDrupalPull extends PMPAPIDrupal {
   *   A PMPAPIDrupal object
   */
   function saveEntity($doc) {
-    $doc->profile = end(explode('/', $doc->links->profile[0]->href));
+    $pieces = explode('/', $doc->links->profile[0]->href);
+    $doc->profile = end($pieces);
     $mapped_entity = pmpapi_pull_find_mapped_entity($doc->profile);
     if ($mapped_entity) {
       $entity_type = $mapped_entity['entity_type'];
@@ -442,7 +443,8 @@ class PMPAPIDrupalPull extends PMPAPIDrupal {
   function addItems($entity, $doc, $map) {
     if (!empty($doc->items) && (empty($doc->recurse) || !isset($doc->recurse))) {
       foreach($doc->items as $item) {
-        $item_profile = end(explode('/', $item->links->profile[0]->href));
+        $pieces = explode('/', $item->links->profile[0]->href);
+        $item_profile = end($pieces);
         $local_field = !empty($map['item-' . $item_profile]) ? $map['item-' . $item_profile] : NULL;
         if ($local_field && ($item_profile == 'image' || $item_profile == 'audio' || $item_profile == 'video')) {
           $item_guid = $item->attributes->guid;
