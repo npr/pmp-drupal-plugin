@@ -393,8 +393,29 @@ function pmpapi_pmpapi_profile_info() {
     ),
     'description' => array(
       'type' => 'text',
-      'accepted_types' => array('text'),
+      'accepted_types' => array('text', 'text_long'),
       'description' => t('A representation of the content of this document without HTML.'),
+    ),
+    'teaser' => array(
+      'type' => 'text',
+      'accepted_types' => array('text', 'text_long'),
+      'description' => t('A short description, appropriate for showing in small spaces.'),
+    ),
+    'tags' => array(
+      'type' => 'array',
+      'accepted_types' => array('text', 'taxonomy_term_reference'),
+      'description' => t('Tags.'),
+      'multiple' => TRUE,
+    ),
+    'published' => array(
+      'type' => 'datetime',
+      'accepted_types' => array('date', 'datetime', 'datestamp'),
+      'description' => t('Display date of the document ("published" date), in ISO 8601.'),
+    ),
+    'contentencoded' => array(
+      'type' => 'text',
+      'accepted_types' => array('text', 'text_long', 'text_with_summary'),
+      'description' => t('A representation of the content which can be used literally as HTML-encoded content.'),
     ),
   );
   $pmp['audio'] = array(
