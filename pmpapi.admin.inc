@@ -14,11 +14,11 @@
  * @ingroup forms
  */
 function pmpapi_config_form($form, &$form_state) {
-
+  // Only run this if there are already credentials available.
   // Don't worry about calls to this function where there is a non-empty input
   // in $form_state, as this is a second call happening on submission. No need
   // to ping the API twice.
-  if (empty($form_state['input'])) {
+  if (variable_get('pmpapi_base_url') && variable_get('pmpapi_user_id') && variable_get('pmpapi_auth_client_id') && variable_get('pmpapi_auth_client_secret') && empty($form_state['input'])) {
     if (pmpapi_ping()) {
       $type = 'status';
       $message = t('Ping to API came back without errors.');
