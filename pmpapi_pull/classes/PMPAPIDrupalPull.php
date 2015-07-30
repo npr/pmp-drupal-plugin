@@ -122,8 +122,8 @@ class PMPAPIDrupalPull extends PMPAPIDrupal {
         $file = $this->createEnclosureFile($doc->links->enclosure[0], $doc->profile, $doc->attributes->guid);
         $entity = (object) array_merge((array) $file, (array) $entity);
       }
-      if ($entity_type != 'file') {
-        $entity->status = (pmpapi_doc_is_valid($doc)) ? 1 : 0;
+      if ($entity_type != 'file' && !pmpapi_doc_is_valid($doc)) {
+        $entity->status = 0;
       }
 
       // This needs attention
