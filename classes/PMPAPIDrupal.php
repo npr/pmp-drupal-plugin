@@ -373,7 +373,13 @@ class PMPAPIDrupal {
    *   The file name - minus the file extension
    */
   function sdkInclude($file) {
-    module_load_include('php', 'pmpapi', 'phpsdk/lib/Pmp/Sdk/' . $file);
+    $dir_path = 'phpsdk/lib/Pmp/Sdk/';
+    if (module_load_include('php', 'pmpapi', $dir_path . $file)) {
+      return TRUE;
+    }
+    else {
+      require_once DRUPAL_ROOT . '/sites/all/libraries/' . $dir_path . $file . '.php';
+    }
   }
 
   /**
