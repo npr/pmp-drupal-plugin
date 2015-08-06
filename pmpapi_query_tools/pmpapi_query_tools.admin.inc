@@ -34,6 +34,14 @@ function pmpapi_query_tools_admin_config($form, &$form_state, $query = '') {
     '#title' => t('Query parameters'),
   );
 
+  $form['query_parameters']['creator'] = array(
+    '#type' => 'select',
+    '#title' => t('Creator'),
+    '#description' => t('Limit query to the chosen creator.'),
+    '#options' => array_flip(pmpapi_get_creators()),
+    '#default_value' => !empty($saved['creator']) ? $saved['creator'] : array(),
+  );
+
   $form['query_parameters']['limit'] = array(
     '#type' => 'select',
     '#title' => t('Limit'),

@@ -696,3 +696,21 @@ function pmpapi_get_mp3_from_m3u($url) {
     return NULL;
   }
 }
+
+/**
+ * Return all PMP creators (who have created 1+ docs)
+ *
+ * @return array
+ *   An array of creator name (key) and creator GUID (value)
+ */
+function pmpapi_get_creators() {
+  $creators = array(
+    'APM' => '98bf597a-2a6f-446c-9b7e-d8ae60122f0d',
+    'NPR' => '6140faf0-fb45-4a95-859a-070037fafa01',
+    'NPRDS' => '39b744ba-e132-4ef3-9099-885aef0ff2f1',
+    'PBS' => 'fc53c568-e939-4d9c-86ea-c2a2c70f1a99',
+    'PRI' => '7a865268-c9de-4b27-a3c1-983adad90921',
+    'PRX' => '609a539c-9177-4aa7-acde-c10b77a6a525',
+  );
+  return $creators;
+}
