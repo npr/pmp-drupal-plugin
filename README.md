@@ -1,14 +1,18 @@
 ##Installing the PMPAPI Module(s)
 1. Download modules as you would normally.
-2. cd into the directory you just created: `cd pmpapi`
-3. Get a copy of the PHP SDK:
+2. Get a copy of the PHP SDK via git:
 
     `git clone -b v0.1.2 --depth 1 git@github.com:publicmediaplatform/phpsdk.git`
     
+3. Or get the zip at
+
+    `https://github.com/publicmediaplatform/phpsdk/archive/v0.1.2.zip`
+
 4. **Make sure you do not use a newer version of the SDK.** It can and will break the modules.
-5. Enable the pmpapi module (or more)
-6. Make sure you have the proper PMP credentials. https://support.pmp.io/register
-7. Configure your PMP settings at: admin/config/services/pmp
+5. The PHP SDK can be placed inside the PMPAPI module directory or, if using version 7-1.2 or above, you can place it in `sites/all/libraries` (recommended).
+6. Enable the pmpapi module (or more)
+7. Make sure you have the proper PMP credentials. https://support.pmp.io/register
+8. Configure your PMP settings at: admin/config/services/pmp
 
 ##Architecture
 - This package is composed of 8 distinct modules.
