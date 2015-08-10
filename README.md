@@ -2,7 +2,7 @@
 1. Download modules as you would normally.
 2. Get a copy of the PHP SDK via git:
 
-    `git clone -b v0.1.2 --depth 1 git@github.com:publicmediaplatform/phpsdk.git`
+    `git clone -b v0.1.2 --depth 1 https://github.com/publicmediaplatform/phpsdk.git`
     
 3. Or get the zip at
 
