@@ -107,6 +107,7 @@ function pmpapi_query_tools_admin_config_validate($form, &$form_state) {
  */
 function pmpapi_query_tools_admin_config_submit($form, &$form_state) {
   $options = array(
+    'creator' => $form_state['values']['creator'],
     'limit' => $form_state['values']['limit'],
     'profile' => $form_state['values']['profile'],
     'tag' => $form_state['values']['tag'],
