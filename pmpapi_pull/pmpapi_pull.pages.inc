@@ -306,7 +306,7 @@ function pmpapi_pull_preview($form, &$form_state, $guid = '') {
       $form['publish'] = array(
         '#type' => 'submit',
         '#submit' => array('pmpapi_pull_publish_from_preview'),
-        '#value' => t('Publish'),
+        '#value' => t('Pull'),
       );
     }
     return $form;
