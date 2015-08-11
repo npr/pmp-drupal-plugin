@@ -66,16 +66,33 @@ function pmpapi_pull_filter_form($form, &$form_state, $search_term = '') {
   $params = array('limit' => $limit);
   $per_page = 10;
 
+  if ($search_term) {
+    $params['text'] = $search_term;
+  }
+
+  if (!empty($_GET['tag'])) {
+    $tag = $_GET['tag'];
+    $params['tag'] = $tag;
+  }
+
   if (!empty($_GET['profile'])) {
     $profile = $_GET['profile'];
     $params['profile'] = $profile;
   }
-
   $profiles = array('All') + pmpapi_get_profile_list();
 
-  if ($search_term) {
-    $params['text'] = $search_term;
+  if (!empty($_GET['creator'])) {
+    $creator = $_GET['creator'];
+    $params['creator'] = $creator;
   }
+  $creators = array('All') + array_flip(pmpapi_get_creators());
+
+  if (!empty($_GET['property'])) {
+    $program = $_GET['property'];
+    // query by 'collection=', not 'property='
+    $params['collection'] = $program;
+  }
+  $programs = array(0 => t('All')) + pmpapi_get_properties();
 
   if (!empty($_GET['page'])) {
     // doing this drupal-style, wherein pages are 0-indexed
@@ -83,22 +100,56 @@ function pmpapi_pull_filter_form($form, &$form_state, $search_term = '') {
     $params['offset'] = $_GET['page'] * $per_page;
   }
 
-  $form['search_term'] = array(
+  $form['text'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Text search'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['text']['search_term'] = array(
     '#title' => 'Search term',
     '#type' => 'textfield',
     '#default_value' => $search_term,
   );
 
-  $form['profile'] = array(
-    '#title' => 'Filter by profile',
+  $form['text']['tag'] = array(
+    '#title' => 'Tag(s)',
+    '#type' => 'textfield',
+    '#default_value' => !empty($tag) ? $tag : '',
+  );
+
+  $form['filter'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Filter by'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['filter']['profile'] = array(
+    '#title' => 'Profile',
     '#type' => 'select',
     '#default_value' => !empty($profile) ? $profile : 0,
     '#options' => $profiles,
   );
 
+  $form['filter']['creator'] = array(
+    '#title' => 'Creator',
+    '#type' => 'select',
+    '#default_value' => !empty($creator) ? $creator : 0,
+    '#options' => $creators,
+  );
+
+  $form['filter']['property'] = array(
+    '#title' => 'Program',
+    '#type' => 'select',
+    '#default_value' => !empty($program) ? $program : 0,
+    '#options' => $programs,
+  );
+
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Filter'),
+    '#value' => t('Search'),
   );
 
   $pmp = pmpapi_query($params, FALSE); // don't cache
@@ -123,14 +174,23 @@ function pmpapi_pull_filter_form($form, &$form_state, $search_term = '') {
  * @ingroup forms
  */
 function pmpapi_pull_filter_form_submit($form, &$form_state) {
-  if ($form_state['values']['op'] == 'Filter') {
+  if ($form_state['values']['op'] == 'Search') {
     $path = 'admin/content/pmp/search';
-    $options = array();
+    $options = array('query' => array());
     if (!empty($form_state['values']['search_term'])) {
       $path = $path . '/' . $form_state['values']['search_term'];
     }
+    if ($form_state['values']['tag']) {
+      $options['query']['tag'] = $form_state['values']['tag'];
+    }
     if ($form_state['values']['profile']) {
-      $options['query'] = array('profile' => $form_state['values']['profile']);
+      $options['query']['profile'] = $form_state['values']['profile'];
+    }
+    if ($form_state['values']['creator']) {
+      $options['query']['creator'] = $form_state['values']['creator'];
+    }
+    if ($form_state['values']['property']) {
+      $options['query']['property'] = $form_state['values']['property'];
     }
     $form_state['redirect'] = array($path, $options);
   }

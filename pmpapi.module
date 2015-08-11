@@ -714,3 +714,21 @@ function pmpapi_get_creators() {
   );
   return $creators;
 }
+
+/**
+ * Create a list of all PMP properties (essentially 'programs')
+ *
+ * @return array
+ *   An array of property GUID (key) and property name (value)
+ */
+function pmpapi_get_properties() {
+  $properties = array();
+  $pmp = pmpapi_query(array('profile' => 'property', 'limit' => 10000));
+  if (!empty($pmp->query->results->docs)) {
+    foreach($pmp->query->results->docs as $doc){
+      $properties[$doc->attributes->guid] = $doc->attributes->title;
+    }
+  }
+  asort($properties);
+  return $properties;
+}
