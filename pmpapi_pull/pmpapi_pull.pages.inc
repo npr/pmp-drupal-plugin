@@ -210,7 +210,8 @@ function pmpapi_pull_parse_doc_metadata($docs) {
   $pulling = variable_get('pmpapi_pull_pull_active');
   foreach($docs as $doc) {
     $title = $doc->attributes->title;
-    $profile = array_pop(explode('/', $doc->links->profile[0]->href));
+    $pieces = explode('/', $doc->links->profile[0]->href);
+    $profile = array_pop($pieces);
     $guid = $doc->attributes->guid;
     $api_date =  $doc->attributes->published;
     $timestamp = strtotime($api_date);
