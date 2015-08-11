@@ -25,6 +25,30 @@ function pmpapi_uninstall() {
 }
 
 /**
+ * Implements hook_requirements().
+ */
+function pmpapi_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break during installation.
+  $t = get_t();
+
+  // If AuthClient doesn't live in module or sites/all/libraries, stop the
+  // install. Crude and not foolproof; but effective.
+  $auth_path = 'phpsdk/lib/Pmp/Sdk/AuthClient.php';
+  $in_module = file_exists(DRUPAL_ROOT . '/' . drupal_get_path('module', 'pmpapi') . '/'. $auth_path);
+  $in_library = file_exists(DRUPAL_ROOT . '/sites/all/libraries/' . $auth_path);
+
+  if (!$in_module && !$in_library) {
+    $requirements ['pmpapi'] = array(
+      'title' => $t('PMP PHP SDK'),
+      'description' => 'The pmpapi module requires a 3rd-party PHP SDK before it can be installed. See the README file for more info.',
+      'severity' => REQUIREMENT_ERROR,
+    );
+  }
+  return $requirements;
+}
+
+/**
  * Implements hook_schema().
  */
 function pmpapi_schema() {
