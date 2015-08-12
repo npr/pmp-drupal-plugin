@@ -145,7 +145,18 @@ function pmpapi_query_tools_execute_queries() {
     // See https://github.com/publicmediaplatform/pmpdocs/wiki/Querying-the-API
     // ; = boolean OR
     // : = boolean AND
-    
+
+    // creator
+    $creators = array();
+    foreach($options['creator'] as $i => $creator) {
+      if ($creator) {
+        $creators[] = $i;
+      }
+    }
+    if ($creators) {
+      $options['creator'] = implode(';', $creators);
+    }
+
     // profile
     $profiles = array();
     foreach($options['profile'] as $i => $profile) {
