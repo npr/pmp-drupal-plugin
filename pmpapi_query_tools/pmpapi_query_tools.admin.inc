@@ -68,11 +68,12 @@ function pmpapi_query_tools_admin_config($form, &$form_state, $query = '') {
     '#default_value' => !empty($saved['tag']) ? $saved['tag'] : '',
   );
 
+  $text_t_args = array('@syntax' => url('http://www.lucenetutorial.com/lucene-query-syntax.html'));
   $form['query_parameters']['text'] = array(
     '#type' => 'textfield',
     '#title' => t('Search text'),
     '#size' => 60,
-    '#description' => t('Limit query to the above search snippet.'),
+    '#description' => t("Limit query to search snippet (using the <a href='@syntax'>Lucene query syntax</a>).", $text_t_args),
     '#default_value' => !empty($saved['text']) ? $saved['text'] : '',
   );
 

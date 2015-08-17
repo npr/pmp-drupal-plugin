@@ -107,16 +107,19 @@ function pmpapi_pull_filter_form($form, &$form_state, $search_term = '') {
     '#collapsed' => FALSE,
   );
 
+  $text_t_args = array('@syntax' => url('http://www.lucenetutorial.com/lucene-query-syntax.html'));
   $form['text']['search_term'] = array(
     '#title' => 'Search term',
     '#type' => 'textfield',
     '#default_value' => $search_term,
+    '#description' => t("Limit query to search snippet (using the <a href='@syntax'>Lucene query syntax</a>)", $text_t_args),
   );
 
   $form['text']['tag'] = array(
     '#title' => 'Tag(s)',
     '#type' => 'textfield',
     '#default_value' => !empty($tag) ? $tag : '',
+    '#description' => t('Limit query to the listed tags (space-separated).'),
   );
 
   $form['filter'] = array(
