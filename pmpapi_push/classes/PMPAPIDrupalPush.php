@@ -127,7 +127,7 @@ class PMPAPIDrupalPush extends PMPAPIDrupal {
     }
     $pmp_info = pmpapi_get_profile_info($profile);
     foreach($mapping as $local_field => $pmp_field) {
-      if ($pmp_field && isset($entity->{$local_field}[$lang][0]) && $pmp_field != $title_field) {
+      if ($pmp_field && isset($entity->{$local_field}[$lang][0]) && $local_field != $title_field) {
         $info = field_info_field($local_field);
         $field_type = $info['type'];
 
