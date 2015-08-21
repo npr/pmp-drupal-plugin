@@ -78,7 +78,7 @@ function pmpapi_groups_edit_form($form, &$form_state, $guid = '') {
   );
   
   $pmp = new PMPAPIDrupal();
-  $pmp->pull(array('limit' => 1000, 'profile'=>'organization'));
+  $pmp->pull(array('limit' => 1000, 'profile'=>'organization', 'searchsort' => 'title'));
   $possible_orgs = array();
   foreach($pmp->query->results->docs as $doc) {
     $possible_orgs[$doc->attributes->guid] = $doc->attributes->title;
