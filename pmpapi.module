@@ -44,6 +44,17 @@ function pmpapi_menu() {
     'file' => 'pmpapi.pages.inc',
   );
 
+  $items['admin/config/services/pmp/help'] = array(
+    'title' => 'Help',
+    'description' => 'Get more information on mapping fields to and from PMP',
+    'weight' => 50,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pmpapi_help_form'),
+    'access arguments' => array('administer PMP API'),
+    'file' => 'pmpapi.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 

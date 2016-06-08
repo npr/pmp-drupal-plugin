@@ -124,3 +124,42 @@ function pmpapi_get_custom_caches() {
   }
   return $bins;
 }
+
+function pmpapi_help_form($form, &$form_state){
+  $profiles = pmpapi_pmpapi_profile_info();
+  $header = array(t('PMP Field'), t('Description'), t('Type'), t('Accepted Types for mapping'));
+
+  $form['intro'] = array(
+      '#markup' => "Listed below are the different PMP Content Profiles, avaiable fields, and descriptions.",
+    );
+
+  foreach ($profiles as $profile => $pmp_fields) {
+    $rows = array();
+    $table = null;
+    foreach ($pmp_fields as $name => $field) {
+      $new_row = array();
+      $accepted_types = "";
+      foreach ($field['accepted_types'] as $type => $value) {
+        
+        $accepted_types .= $value."<br/>";
+      }
+      $description = isset($field['description']) ? $field['description'] : '';
+      $new_row = array($name, $description, $field['type'], $accepted_types);
+      array_push($rows, $new_row);
+    }
+
+    $table = theme('table', array('header' => $header, 'rows' => $rows));
+
+    $form[$profile] = array(
+      '#type' => 'fieldset',
+      '#title' => strtoupper($profile),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form[$profile]['table'] = array(
+      '#markup' => $table,
+    );
+  }
+  
+  return $form;
+}
