@@ -81,9 +81,9 @@ function pmpapi_push_entity_ok_to_push($entity, $type) {
     }
   }
   // Modules can implement their own tests on an entity
-  $hooks_ok = module_invoke_all('pmpapi_push_entity_ok_to_push', $entity, $type);
+  //$hooks_ok = module_invoke_all('pmpapi_push_entity_ok_to_push', $entity, $type);
 
-  return $kill_switch && $mapped_profile && $status_on && $push_flag && !in_array(FALSE, $hooks_ok, TRUE);
+  return $kill_switch && $mapped_profile && $status_on && $push_flag;
 }
 
 /**
