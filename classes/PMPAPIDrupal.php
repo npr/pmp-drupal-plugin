@@ -108,12 +108,16 @@ class PMPAPIDrupal {
       $doc = $this->getDoc();
       if ($doc) {
         $doc->setDocument($data);
+        dsm($doc);
+        watchdog('PMP Push', '@title successfully pushed to @environment', array('@title' => $doc->attributes->title, '@environment' => $doc->href), WATCHDOG_INFO, $doc->links->alternate[0]->href);
         return $doc->save();
       }
     }
     catch (Exception $e) {
-      $message = t('Error pushing to PMP. Message: @exception', array('@exception' => $e->getMessage()));
+      $message = t('Error pushing to PMP. Message: @exception. Check the logs for more details.', array('@exception' => $e->getMessage()));
       drupal_set_message($message, 'warning');
+      $details = $e->getDetails();
+      watchdog('PMP Push', 'Error pushing content to PMP<br/>code: @code<br/>message:<br/>@message', array('@code' => $details['code'], '@message' => $details['data']), WATCHDOG_ERROR);
     }
   }
 
