@@ -29,7 +29,9 @@ function pmpapi_config_form($form, &$form_state) {
     }
     drupal_set_message($message, $type, FALSE);
   }
-
+  $form['pmpapi_register'] = array(
+    '#markup' => 'To register with PMP, visit <a href="https://support.pmp.io/register" target="_blank">https://support.pmp.io/register</a>'
+  );
   $form['pmpapi_base_url'] = array(
     '#type' => 'select',
     '#required' => TRUE,
@@ -130,7 +132,7 @@ function pmpapi_help_form($form, &$form_state){
   $header = array(t('PMP Field'), t('Description'), t('Type'), t('Accepted Types for mapping'));
 
   $form['intro'] = array(
-      '#markup' => "Listed below are the different PMP Content Profiles, avaiable fields, and descriptions.",
+      '#markup' => 'Listed below are the different PMP Content Profiles, avaiable fields, and descriptions. If you are having trouble, try visiting the Support Center at <a href="https://support.pmp.io/guides" target="_blank">https://support.pmp.io/guides</a>',
     );
 
   foreach ($profiles as $profile => $pmp_fields) {
