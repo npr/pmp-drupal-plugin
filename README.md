@@ -2,11 +2,11 @@
 1. Download modules as you would normally.
 2. Get a copy of the PHP SDK via git:
 
-    `git clone -b v0.1.2 --depth 1 https://github.com/publicmediaplatform/phpsdk.git`
+    `git clone -b v0.1.2 --depth 1 https://github.com/npr/pmp-php-sdk.git`
     
 3. Or get the zip at
 
-    `https://github.com/publicmediaplatform/phpsdk/archive/v0.1.2.zip`
+    `https://github.com/npr/pmp-php-sdk/archive/v0.1.2.zip`
 
 4. **Make sure you do not use a newer version of the SDK.** It can and will break the modules.
 5. The PHP SDK can be placed inside the PMPAPI module directory or, if using version 7-1.2 or above, you can place it in `sites/all/libraries` (recommended).
