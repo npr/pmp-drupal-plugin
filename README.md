@@ -1,3 +1,7 @@
+# PMP is shut down as of July 2021 - this plugin is no longer maintained!
+
+**PMP is shut down as of July 2021 - this plugin is no longer maintained!**
+
 ##Installing the PMPAPI Module(s)
 1. Download modules as you would normally.
 2. Get a copy of the PHP SDK via git:
